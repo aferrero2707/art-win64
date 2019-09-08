@@ -24,7 +24,9 @@ mingw64/mingw-w64-x86_64-fftw mingw64/mingw-w64-x86_64-libtiff mingw64/mingw-w64
 sudo pacman --noconfirm --config /etc/pacman-msys.conf -S \
 mingw64/mingw-w64-x86_64-gtk3 mingw64/mingw-w64-x86_64-gtkmm3 || exit 1
 
-sudo sed -i 's|prefix=/mingw64|prefix=/msys2/mingw64|g' /msys2/mingw64/lib/pkgconfig/exiv2.pc
+for FPC in $(ls /msys2/mingw64/lib/pkgconfig/*.pc); do
+sudo sed -i 's|=/mingw64|=/msys2/mingw64|g' "$FPC"
+done
 
 (cd / && sudo rm -f mingw64 && sudo ln -s /msys2/mingw64 mingw64) || exit 1
 export PKG_CONFIG_PATH=/msys2/mingw64/lib/pkgconfig:$PKG_CONFIG_PATH
