@@ -5,14 +5,10 @@ compiler: g++
 sudo: required
 services: docker
 env: 
-  - RT_BRANCH=dev
-  - RT_BRANCH=newlocallab
-  - RT_BRANCH=wavelenh
-  #- RT_BRANCH=releases
-  #- RT_BRANCH=release-5.5
+  - RT_BRANCH=alberto-dev
 
 before_script:
-  - git clone https://github.com/Beep6581/RawTherapee.git --branch $RT_BRANCH --single-branch
+  - git clone https://bitbucket.org/agriggio/art.git --branch $RT_BRANCH --single-branch RawTherapee
   - rm -rf RawTherapee/ci
   - cp -a ci RawTherapee
   - cd RawTherapee
@@ -22,10 +18,6 @@ before_script:
     fi'
   - git clone https://github.com/SpiNNakerManchester/SupportScripts.git support
   - python support/travis_blocking_stdout.py
-  #- travis_wait 120 sleep infinity & sudo docker pull photoflow/docker-trusty-gtk3
-  #- sudo docker run -it -v $(pwd):/sources -e "RT_BRANCH=${RT_BRANCH}" photoflow/docker-trusty-gtk3 bash /sources/ci/appimage.sh
-  #- travis_wait 120 sleep infinity & sudo docker pull photoflow/docker-buildenv-mingw
-  #- sudo docker run -it -e "TRAVIS_BUILD_DIR=/sources" -e "TRAVIS_BRANCH=${RT_BRANCH}" -e "TRAVIS_COMMIT=xxx" -v $(pwd):/sources photoflow/docker-buildenv-mingw bash -c /sources/ci/package-w64.sh
   - travis_wait 120 sleep infinity & sudo docker pull photoflow/docker-buildenv-mingw-manjaro-wine
   - sudo docker run -it -e "TRAVIS_BUILD_DIR=/sources" -e "TRAVIS_BRANCH=${RT_BRANCH}" -e "TRAVIS_COMMIT=xxx" -v $(pwd):/sources photoflow/docker-buildenv-mingw-manjaro-wine bash -c /sources/ci/package-msys2.sh
   #- bash ci/appimage2.sh
