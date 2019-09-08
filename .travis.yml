@@ -1,0 +1,55 @@
+language: generic
+os: linux
+dist: trusty
+compiler: g++
+sudo: required
+services: docker
+env: 
+  - RT_BRANCH=dev
+  - RT_BRANCH=newlocallab
+  - RT_BRANCH=wavelenh
+  #- RT_BRANCH=releases
+  #- RT_BRANCH=release-5.5
+
+before_script:
+  - git clone https://github.com/Beep6581/RawTherapee.git --branch $RT_BRANCH --single-branch
+  - rm -rf RawTherapee/ci
+  - cp -a ci RawTherapee
+  - cd RawTherapee
+  - bash ci/check_commit.sh "continuous" ${RT_BRANCH}
+  - 'if [ -e travis.cancel ]; then
+        exit 0;
+    fi'
+  - git clone https://github.com/SpiNNakerManchester/SupportScripts.git support
+  - python support/travis_blocking_stdout.py
+  #- travis_wait 120 sleep infinity & sudo docker pull photoflow/docker-trusty-gtk3
+  #- sudo docker run -it -v $(pwd):/sources -e "RT_BRANCH=${RT_BRANCH}" photoflow/docker-trusty-gtk3 bash /sources/ci/appimage.sh
+  #- travis_wait 120 sleep infinity & sudo docker pull photoflow/docker-buildenv-mingw
+  #- sudo docker run -it -e "TRAVIS_BUILD_DIR=/sources" -e "TRAVIS_BRANCH=${RT_BRANCH}" -e "TRAVIS_COMMIT=xxx" -v $(pwd):/sources photoflow/docker-buildenv-mingw bash -c /sources/ci/package-w64.sh
+  - travis_wait 120 sleep infinity & sudo docker pull photoflow/docker-buildenv-mingw-manjaro-wine
+  - sudo docker run -it -e "TRAVIS_BUILD_DIR=/sources" -e "TRAVIS_BRANCH=${RT_BRANCH}" -e "TRAVIS_COMMIT=xxx" -v $(pwd):/sources photoflow/docker-buildenv-mingw-manjaro-wine bash -c /sources/ci/package-msys2.sh
+  #- bash ci/appimage2.sh
+  - # check if zip file was successfully created
+  - # abort job with failure if not
+  #- ls RawTherapee_${RT_BRANCH}-win64*.zip RawTherapee_${RT_BRANCH}-win64*.exe
+  - ls -lhrt
+after_success:
+  - cd $TRAVIS_BUILD_DIR/RawTherapee
+  - pwd
+  #- ls RawTherapee_${RT_BRANCH}-win64*.zip RawTherapee_${RT_BRANCH}-win64*.exe
+  - ls -lhrt
+  - wget -c https://github.com/aferrero2707/uploadtool/raw/master/remove.sh
+  - bash ./remove.sh "continuous" "RawTherapee_${RT_BRANCH}-win64" ".zip"
+  - bash ./remove.sh "continuous" "RawTherapee_${RT_BRANCH}-win64" ".exe"
+  #- TRAVIS_REPO_SLUG="Beep6581/RawTherapee" bash ./remove.sh "nightly" "RawTherapee-${RT_BRANCH}-" ".AppImage"
+  - wget -c https://github.com/aferrero2707/uploadtool/raw/master/upload_rotate.sh
+  #- TRAVIS_REPO_SLUG="Beep6581/RawTherapee" bash  ./upload_rotate.sh "nightly" out/* >& /dev/null
+  #- TRAVIS_REPO_SLUG="Beep6581/RawTherapee" bash  ./upload_rotate.sh "nightly" $TRAVIS_BUILD_DIR/RawTherapee/commit-${RT_BRANCH}.hash >& /dev/null
+  - bash  ./upload_rotate.sh "continuous" RawTherapee*.zip >& /dev/null
+  - bash  ./upload_rotate.sh "continuous" RawTherapee*.exe >& /dev/null
+  - bash  ./upload_rotate.sh "continuous" $TRAVIS_BUILD_DIR/RawTherapee/commit-${RT_BRANCH}-win64.hash >& /dev/null
+branches:
+  except:
+    - # Do not build tags that we create when we upload to GitHub Releases
+    - /^(?i:continuous)$/
+    

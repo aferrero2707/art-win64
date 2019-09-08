@@ -1,0 +1,19 @@
+*** rtgui/options.cc.orig	Fri Aug 31 13:27:35 2018
+--- rtgui/options.cc	Fri Aug 31 10:24:17 2018
+***************
+*** 37,43 ****
+  #ifndef _WIN32_IE
+  #define _WIN32_IE 0x0600
+  #endif
+! #include <Shlobj.h>
+  #endif
+  
+  // User's settings directory, including images' profiles if used
+--- 37,43 ----
+  #ifndef _WIN32_IE
+  #define _WIN32_IE 0x0600
+  #endif
+! #include <shlobj.h>
+  #endif
+  
+  // User's settings directory, including images' profiles if used

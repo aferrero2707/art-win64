@@ -1,0 +1,23 @@
+*** rtdata/CMakeLists.txt.orig	Fri Aug 31 15:37:45 2018
+--- rtdata/CMakeLists.txt	Fri Aug 31 15:38:02 2018
+***************
+*** 25,33 ****
+      set(OPTIONSFILE "options/options.lin")
+  endif()
+  
+! if(WIN32)
+!     install(FILES "${CMAKE_CURRENT_BINARY_DIR}/WindowsInnoSetup.iss" DESTINATION ${BINDIR})
+! endif()
+  
+  if(UNIX)
+      configure_file("${CMAKE_CURRENT_SOURCE_DIR}/rawtherapee.desktop.in" "${CMAKE_CURRENT_BINARY_DIR}/rawtherapee.desktop")
+--- 25,33 ----
+      set(OPTIONSFILE "options/options.lin")
+  endif()
+  
+! #if(WIN32)
+! #    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/WindowsInnoSetup.iss" DESTINATION ${BINDIR})
+! #endif()
+  
+  if(UNIX)
+      configure_file("${CMAKE_CURRENT_SOURCE_DIR}/rawtherapee.desktop.in" "${CMAKE_CURRENT_BINARY_DIR}/rawtherapee.desktop")

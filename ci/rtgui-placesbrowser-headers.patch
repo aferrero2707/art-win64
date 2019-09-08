@@ -1,0 +1,19 @@
+*** rtgui/placesbrowser.cc.orig	Fri Aug 31 10:27:29 2018
+--- rtgui/placesbrowser.cc	Fri Aug 31 10:27:41 2018
+***************
+*** 21,27 ****
+  #ifdef WIN32
+  #include <windows.h>
+  #include <shlobj.h>
+! #include <Shlwapi.h>
+  #endif
+  
+  #include "guiutils.h"
+--- 21,27 ----
+  #ifdef WIN32
+  #include <windows.h>
+  #include <shlobj.h>
+! #include <shlwapi.h>
+  #endif
+  
+  #include "guiutils.h"

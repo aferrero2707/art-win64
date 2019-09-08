@@ -1,0 +1,18 @@
+*** rtgui/main.cc.orig	Sun Sep  2 20:53:15 2018
+--- rtgui/main.cc	Sun Sep  2 21:24:52 2018
+***************
+*** 492,497 ****
+--- 492,504 ----
+  #endif
+      exePath = Glib::path_get_dirname (exname);
+  
++ #ifdef WIN32
++     Glib::ustring pixbuf_module_path = Glib::build_filename (exePath, "lib/gdk-pixbuf-2.0/2.10.0/loaders");
++     Glib::setenv("GDK_PIXBUF_MODULEDIR", pixbuf_module_path, true);
++     Glib::ustring pixbuf_module_cache = Glib::build_filename (exePath, "lib/gdk-pixbuf-2.0/2.10.0/loaders.cache");
++     Glib::setenv("GDK_PIXBUF_MODULE_FILE", pixbuf_module_cache, true);
++ #endif
++ 
+      // set paths
+      if (Glib::path_is_absolute (DATA_SEARCH_PATH)) {
+          argv0 = DATA_SEARCH_PATH;

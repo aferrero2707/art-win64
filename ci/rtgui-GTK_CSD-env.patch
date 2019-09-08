@@ -1,0 +1,21 @@
+*** rtgui/main.cc.orig2	Wed Nov 28 16:14:34 2018
+--- rtgui/main.cc	Wed Nov 28 16:18:35 2018
+***************
+*** 475,480 ****
+--- 475,490 ----
+      }
+  #endif
+  
++ #ifdef WIN32
++     std::string gtk_csd = Glib::getenv("GTK_CSD");
++     std::cout<<"GTK_CSD: "<<gtk_csd<<std::endl;
++     if(gtk_csd.empty()) {
++       std::cout<<"Forcing GTK_CSD=0"<<std::endl;
++       Glib::setenv("GTK_CSD", "0", true);
++     }
++ #endif
++ 
++ 
+  #ifdef BUILD_BUNDLE
+      char exname[512] = {0};
+      Glib::ustring exePath;
