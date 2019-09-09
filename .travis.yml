@@ -5,7 +5,7 @@ compiler: g++
 sudo: required
 services: docker
 env: 
-  - RT_BRANCH=alberto-dev
+  - RT_BRANCH=master
 
 before_script:
   - git clone https://bitbucket.org/agriggio/art.git --branch $RT_BRANCH --single-branch RawTherapee
