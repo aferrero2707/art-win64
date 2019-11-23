@@ -31,8 +31,8 @@ after_success:
   #- ls RawTherapee_${RT_BRANCH}-win64*.zip RawTherapee_${RT_BRANCH}-win64*.exe
   - ls -lhrt
   - wget -c https://github.com/aferrero2707/uploadtool/raw/master/remove.sh
-  - bash ./remove.sh "continuous" "RawTherapee_${RT_BRANCH}-win64" ".zip"
-  - bash ./remove.sh "continuous" "RawTherapee_${RT_BRANCH}-win64" ".exe"
+  - bash ./remove.sh "continuous" "RawTherapee_${RT_BRANCH}-win64" ".zip" >& /dev/null
+  - bash ./remove.sh "continuous" "RawTherapee_${RT_BRANCH}-win64" ".exe" >& /dev/null
   #- TRAVIS_REPO_SLUG="Beep6581/RawTherapee" bash ./remove.sh "nightly" "RawTherapee-${RT_BRANCH}-" ".AppImage"
   - wget -c https://github.com/aferrero2707/uploadtool/raw/master/upload_rotate.sh
   #- TRAVIS_REPO_SLUG="Beep6581/RawTherapee" bash  ./upload_rotate.sh "nightly" out/* >& /dev/null
