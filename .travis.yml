@@ -5,7 +5,7 @@ compiler: g++
 sudo: required
 services: docker
 env: 
-  - RT_BRANCH=alberto-dev
+  - RT_BRANCH=master
 
 before_script:
   - git clone https://bitbucket.org/agriggio/art.git --branch $RT_BRANCH --single-branch RawTherapee
@@ -31,14 +31,14 @@ after_success:
   #- ls RawTherapee_${RT_BRANCH}-win64*.zip RawTherapee_${RT_BRANCH}-win64*.exe
   - ls -lhrt
   - wget -c https://github.com/aferrero2707/uploadtool/raw/master/remove.sh
-  - bash ./remove.sh "continuous" "RawTherapee_${RT_BRANCH}-win64" ".zip" >& /dev/null
-  - bash ./remove.sh "continuous" "RawTherapee_${RT_BRANCH}-win64" ".exe" >& /dev/null
+  - bash ./remove.sh "continuous" "ART_${RT_BRANCH}-win64" ".zip" >& /dev/null
+  - bash ./remove.sh "continuous" "ART_${RT_BRANCH}-win64" ".exe" >& /dev/null
   #- TRAVIS_REPO_SLUG="Beep6581/RawTherapee" bash ./remove.sh "nightly" "RawTherapee-${RT_BRANCH}-" ".AppImage"
   - wget -c https://github.com/aferrero2707/uploadtool/raw/master/upload_rotate.sh
   #- TRAVIS_REPO_SLUG="Beep6581/RawTherapee" bash  ./upload_rotate.sh "nightly" out/* >& /dev/null
   #- TRAVIS_REPO_SLUG="Beep6581/RawTherapee" bash  ./upload_rotate.sh "nightly" $TRAVIS_BUILD_DIR/RawTherapee/commit-${RT_BRANCH}.hash >& /dev/null
-  - bash  ./upload_rotate.sh "continuous" RawTherapee*.zip >& /dev/null
-  - bash  ./upload_rotate.sh "continuous" RawTherapee*.exe >& /dev/null
+  - bash  ./upload_rotate.sh "continuous" ART*.zip >& /dev/null
+  - bash  ./upload_rotate.sh "continuous" ART*.exe >& /dev/null
   - bash  ./upload_rotate.sh "continuous" $TRAVIS_BUILD_DIR/RawTherapee/commit-${RT_BRANCH}-win64.hash >& /dev/null
 branches:
   except:
