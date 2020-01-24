@@ -33,10 +33,10 @@ fi
 if [ ! -e /work/w64-build/rt/${RT_PREFIX}/ART.exe ]; then exit 1; fi
 if [ ! -e /work/w64-build/rt-debug/${RT_PREFIX_DEBUG}/ART.exe ]; then exit 1; fi
 
-echo ""
-echo "Contents of /work/w64-build/rt/${RT_PREFIX}/WindowsInnoSetup.iss"
-cat "/work/w64-build/rt/${RT_PREFIX}/WindowsInnoSetup.iss"
-echo ""
+#echo ""
+#echo "Contents of /work/w64-build/rt/${RT_PREFIX}/WindowsInnoSetup.iss"
+#cat "/work/w64-build/rt/${RT_PREFIX}/WindowsInnoSetup.iss"
+#echo ""
 bundle_package=ART
 #bundle_version="w64-$(date +%Y%m%d)_$(date +%H%M)-git-${TRAVIS_BRANCH}"
 RT_VERSION=$(cat  /work/w64-build/rt/rtdata/WindowsInnoSetup.iss | grep " MyAppVersion " | grep define | cut -d "\"" -f 2)
