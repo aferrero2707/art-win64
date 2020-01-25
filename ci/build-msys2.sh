@@ -76,7 +76,7 @@ cd /work/w64-build/rt-debug || exit 1
 (cmake \
  -DCMAKE_TOOLCHAIN_FILE=/etc/Toolchain-mingw-w64-x86_64.cmake \
  -DCMAKE_BUILD_TYPE=Debug -DPROC_TARGET_NUMBER=1 \
- -DBUNDLE_BASE_INSTALL_DIR="/work/w64-build/rt/Debug" \
+ -DBUNDLE_BASE_INSTALL_DIR="/work/w64-build/rt-debug/Debug" \
  -DCACHE_NAME_SUFFIX="'5-dev'" \
  -DCMAKE_POLICY_DEFAULT_CMP0074=NEW \
  -DWIN32=TRUE \
