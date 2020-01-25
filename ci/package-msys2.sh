@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -xv
+
 # transfer.sh
 transfer() 
 { 
