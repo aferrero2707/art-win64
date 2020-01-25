@@ -19,7 +19,7 @@ before_script:
   - git clone https://github.com/SpiNNakerManchester/SupportScripts.git support
   - python support/travis_blocking_stdout.py
   - travis_wait 120 sleep infinity & sudo docker pull photoflow/docker-buildenv-mingw-manjaro-wine
-  - sudo docker run -it -e "TRAVIS_BUILD_DIR=/sources" -e "TRAVIS_BRANCH=${RT_BRANCH}" -e "TRAVIS_COMMIT=xxx" -v $(pwd):/sources photoflow/docker-buildenv-mingw-manjaro-wine bash -c /sources/ci/package-msys2.sh
+  - sudo docker run -it -e "TRAVIS_BUILD_DIR=/sources" -e "TRAVIS_BRANCH=${RT_BRANCH}" -e "TRAVIS_COMMIT=xxx" -v $(pwd):/sources photoflow/docker-buildenv-mingw-manjaro-wine bash -x -c /sources/ci/package-msys2.sh
   #- bash ci/appimage2.sh
   - # check if zip file was successfully created
   - # abort job with failure if not
