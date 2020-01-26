@@ -316,6 +316,7 @@ sudo zip -q -r $TRAVIS_BUILD_DIR/${bundle_package}_${bundle_version}.zip $bundle
 
 cd /
 #dpkg --add-architecture i386 && apt-get update -y && apt-get install -y wine32
+cd /work/w64-build/rt/${RT_PREFIX} || exit 1
 wine ~/.wine/drive_c/Program\ Files\ \(x86\)/Inno\ Setup\ 5/ISCC.exe - < /work/WindowsInnoSetup.iss
 sudo cp "$repackagedir/.."/*_*.exe "$TRAVIS_BUILD_DIR"
 
