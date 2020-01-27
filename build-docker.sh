@@ -1,6 +1,6 @@
 #! /bin/bash
 
-export RT_BRANCH=alberto-dev
+export RT_BRANCH=master
 #rm -rf RawTherapee
 if [ ! -e RawTherapee ]; then
 	git clone https://bitbucket.org/agriggio/art.git --branch $RT_BRANCH --single-branch RawTherapee
