@@ -45,7 +45,7 @@ RT_VERSION=$(cat  /work/w64-build/rt/rtdata/WindowsInnoSetup.iss | grep " MyAppV
 bundle_version="${TRAVIS_BRANCH}-win64-${RT_VERSION}"
 #repackagedir=$TRAVIS_BUILD_DIR/$bundle_package-$bundle_version
 repackagedir=/work/$bundle_package-$bundle_version
-cat /work/w64-build/rt/rtdata/WindowsInnoSetup.iss | sed -e "s|/work/w64-build/rt/${RT_PREFIX}|$repackagedir|g" | sed -e "s|\"${RT_VERSION}\"|\"${bundle_version}\"|g" | sed -e "s|#define MyBuildBasePath \".\"|#define MyBuildBasePath \"${repackagedir}\"|g"> /work/WindowsInnoSetup.iss
+cat /work/w64-build/rt/rtdata/WindowsInnoSetup.iss | sed -e "s|/work/w64-build/rt/${RT_PREFIX}|$repackagedir|g" | sed -e "s|\"${RT_VERSION}\"|\"${bundle_version}\"|g" | sed -e "s|#define MyBuildBasePath \".\"|#define MyBuildBasePath \"${repackagedir}\"|g" | sed "s|WizardImageFile|; WizardImageFile|g" > /work/WindowsInnoSetup.iss
 cat /work/WindowsInnoSetup.iss
 
 
