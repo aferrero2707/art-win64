@@ -241,7 +241,9 @@ cp -L $mingwlibdir/*.dll $repackagedir/
 #mkdir -p $repackagedir/share/glib-2.0/schemas
 #cp -a $installdir/share/glib-2.0/schemas/gschemas.compiled $repackagedir/share/glib-2.0/schemas
 
-sudo pacman --noconfirm -S lensfun || exit 1
+(cd /tmp && rm -f lensfun*.pkg.tar.xz && wget https://archive.archlinux.org/packages/l/lensfun/lensfun-0.3.2-9-x86_64.pkg.tar.xz &&
+sudo pacman --noconfirm -U lensfun-0.3.2-9-x86_64.pkg.tar.xz) || exit 1
+#sudo pacman --noconfirm -S lensfun || exit 1
 sudo lensfun-update-data
 mkdir -p $repackagedir/share/lensfun
 cp -a /var/lib/lensfun-updates/version_1/* $repackagedir/share/lensfun
