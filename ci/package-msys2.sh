@@ -305,6 +305,12 @@ echo 'gtk-button-images=1' >> "$repackagedir/share/gtk-3.0/settings.ini"
 
 sudo pacman --noconfirm -S zip || exit 1
 
+# install latest version of exiftool.exe
+(cd /tmp && rm -f exiftool* && wget https://exiftool.org/exiftool-11.86.zip && unzip exiftool-11.86.zip && mv "exiftool(-k).exe" "exiftool.exe" && mkdir -p $repackagedir/bin && cp -a "exiftool.exe" $repackagedir/bin) || exit 1
+echo "Contents of $repackagedir/bin"
+ls $repackagedir/bin
+echo "================"; echo ""
+
 rm -f $TRAVIS_BUILD_DIR/${bundle_package}_${bundle_version}.zip
 cd $repackagedir/../
 echo "zip -q -r $TRAVIS_BUILD_DIR/${bundle_package}_${bundle_version}.zip $bundle_package-$bundle_version"
