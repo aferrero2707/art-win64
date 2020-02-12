@@ -303,7 +303,7 @@ echo 'gtk-button-images=1' >> "$repackagedir/share/gtk-3.0/settings.ini"
 #rm -f $bundle_package-$bundle_version.zip
 #zip -r -qq $bundle_package-$bundle_version.zip $bundle_package-$bundle_version
 
-sudo pacman --noconfirm -S zip || exit 1
+sudo pacman --noconfirm -S zip unzip || exit 1
 
 # install latest version of exiftool.exe
 (cd /tmp && rm -f exiftool* && wget https://exiftool.org/exiftool-11.86.zip && unzip exiftool-11.86.zip && mv "exiftool(-k).exe" "exiftool.exe" && mkdir -p $repackagedir/bin && cp -a "exiftool.exe" $repackagedir/bin) || exit 1
