@@ -78,7 +78,7 @@ rm -rf $repackagedir/wine
 #mkdir $repackagedir/bin
 #(cp -L $installdir/bin/* $repackagedir/bin) || exit 1
 (cp -a /work/w64-build/rt/${RT_PREFIX}/* $repackagedir) || exit 1
-(cp -a /work/w64-build/rt-debug/${RT_PREFIX_DEBUG}/ART.exe $repackagedir/ART-debug.exe) || exit 1
+(cp -a /work/w64-build/rt-debug/${RT_PREFIX_DEBUG}/ART.exe $repackagedir/ART-debug.exe)
 (cp -L $installdir/lib/*.dll $repackagedir/) #|| exit 1
 (cp -L $installdir/bin/*.dll $repackagedir/) #|| exit 1
 echo "================="; echo ""
