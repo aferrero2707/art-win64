@@ -234,10 +234,6 @@ mingwlibdir=/usr/x86_64-w64-mingw32/lib
 cp -L $gccmingwlibdir/*/*.dll $repackagedir/
 cp -L $mingwlibdir/*.dll $repackagedir/
 
-echo "Size of EXIV2 library:"
-ls -lk $mingwlibdir/libexiv2*.dll
-echo ""
-
 #rm -rf $repackagedir/share/mime
 #cp -a /usr/share/mime $repackagedir/share/mime
 #rm $repackagedir/share/mime/application/vnd.ms-*
