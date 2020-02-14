@@ -234,6 +234,10 @@ mingwlibdir=/usr/x86_64-w64-mingw32/lib
 cp -L $gccmingwlibdir/*/*.dll $repackagedir/
 cp -L $mingwlibdir/*.dll $repackagedir/
 
+echo "Size of EXIV2 library:"
+ls -lk $mingwlibdir/libexiv2*.dll
+echo ""
+
 #rm -rf $repackagedir/share/mime
 #cp -a /usr/share/mime $repackagedir/share/mime
 #rm $repackagedir/share/mime/application/vnd.ms-*
@@ -313,6 +317,12 @@ cd $repackagedir/../
 echo "zip -q -r $TRAVIS_BUILD_DIR/${bundle_package}_${bundle_version}.zip $bundle_package-$bundle_version"
 sudo zip -q -r $TRAVIS_BUILD_DIR/${bundle_package}_${bundle_version}.zip $bundle_package-$bundle_version
 #transfer $TRAVIS_BUILD_DIR/$bundle_package-$bundle_version.zip
+
+
+echo "Size of EXIV2 library:"
+ls -lk $repackagedir/libexiv2*.dll
+echo ""
+
 
 #echo "cat /work/WindowsInnoSetup.iss"
 #cat /work/WindowsInnoSetup.iss
