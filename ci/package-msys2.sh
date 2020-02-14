@@ -33,7 +33,7 @@ if [ ! -e /work/build.done ]; then
 	$TRAVIS_BUILD_DIR/ci/build-msys2.sh || exit 1
 fi
 if [ ! -e /work/w64-build/rt/${RT_PREFIX}/ART.exe ]; then exit 1; fi
-if [ ! -e /work/w64-build/rt-debug/${RT_PREFIX_DEBUG}/ART.exe ]; then exit 1; fi
+#if [ ! -e /work/w64-build/rt-debug/${RT_PREFIX_DEBUG}/ART.exe ]; then exit 1; fi
 
 #echo ""
 #echo "Contents of /work/w64-build/rt/${RT_PREFIX}/WindowsInnoSetup.iss"
