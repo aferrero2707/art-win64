@@ -35,8 +35,6 @@ fi
 if [ ! -e /work/w64-build/rt/${RT_PREFIX}/ART.exe ]; then exit 1; fi
 #if [ ! -e /work/w64-build/rt-debug/${RT_PREFIX_DEBUG}/ART.exe ]; then exit 1; fi
 
-fi
-
 
 bundle_package=ART
 
