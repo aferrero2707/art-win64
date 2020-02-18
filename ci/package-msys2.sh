@@ -35,17 +35,31 @@ fi
 if [ ! -e /work/w64-build/rt/${RT_PREFIX}/ART.exe ]; then exit 1; fi
 #if [ ! -e /work/w64-build/rt-debug/${RT_PREFIX_DEBUG}/ART.exe ]; then exit 1; fi
 
-#echo ""
-#echo "Contents of /work/w64-build/rt/${RT_PREFIX}/WindowsInnoSetup.iss"
-#cat "/work/w64-build/rt/${RT_PREFIX}/WindowsInnoSetup.iss"
-#echo ""
+fi
+
+
 bundle_package=ART
+
+export GIT_DESCRIBE="$(cd /sources && git describe --tags --always)"
+msg "TRAVIS_BRANCH: ${TRAVIS_BRANCH}" "GIT_DESCRIBE: ${GIT_DESCRIBE}"
+curr_date="$(date '+%Y%m%d')"
+if [[ $TRAVIS_BRANCH = releases ]]; then
+    bundle_version="${GIT_DESCRIBE}"
+else
+    bundle_version="${TRAVIS_BRANCH}_${GIT_DESCRIBE}_${curr_date}"
+fi
+
+
 #bundle_version="w64-$(date +%Y%m%d)_$(date +%H%M)-git-${TRAVIS_BRANCH}"
 RT_VERSION=$(cat  /work/w64-build/rt/rtdata/WindowsInnoSetup.iss | grep " MyAppVersion " | grep define | cut -d "\"" -f 2)
-bundle_version="${TRAVIS_BRANCH}-win64-${RT_VERSION}"
+#bundle_version="${TRAVIS_BRANCH}-win64-${RT_VERSION}"
 #repackagedir=$TRAVIS_BUILD_DIR/$bundle_package-$bundle_version
 repackagedir=/work/$bundle_package-$bundle_version
-cat /work/w64-build/rt/rtdata/WindowsInnoSetup.iss | sed -e "s|/work/w64-build/rt/${RT_PREFIX}|$repackagedir|g" | sed -e "s|\"${RT_VERSION}\"|\"${bundle_version}\"|g" | sed -e "s|#define MyBuildBasePath \".\"|#define MyBuildBasePath \"${repackagedir}\"|g" | sed "s|WizardImageFile|; WizardImageFile|g" > /work/WindowsInnoSetup.iss
+if [ x"${TRAVIS_BRANCH}" = "xreleases" ]; then
+	cat /work/w64-build/rt/rtdata/WindowsInnoSetup.iss | sed -e "s|/work/w64-build/rt/${RT_PREFIX}|$repackagedir|g" | sed -e "s|\"${RT_VERSION}\"|\"${RT_VERSION}\"|g" | sed -e "s|OutputBaseFilename=.*|OutputBaseFilename=${bundle_package}_${bundle_version}|g" | sed -e "s|#define MyBuildBasePath \".\"|#define MyBuildBasePath \"${repackagedir}\"|g" | sed "s|WizardImageFile|; WizardImageFile|g" > /work/WindowsInnoSetup.iss
+else
+	cat /work/w64-build/rt/rtdata/WindowsInnoSetup.iss | sed -e "s|/work/w64-build/rt/${RT_PREFIX}|$repackagedir|g" | sed -e "s|\"${RT_VERSION}\"|\"${bundle_version}\"|g" | sed -e "s|OutputBaseFilename=.*|OutputBaseFilename=${bundle_package}_${bundle_version}|g" | sed -e "s|#define MyBuildBasePath \".\"|#define MyBuildBasePath \"${repackagedir}\"|g" | sed "s|WizardImageFile|; WizardImageFile|g" > /work/WindowsInnoSetup.iss
+fi
 cat /work/WindowsInnoSetup.iss
 
 
