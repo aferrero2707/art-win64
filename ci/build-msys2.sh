@@ -59,8 +59,6 @@ if [ ! -e exiv2-0.27.2-Source ]; then
 	cd build || exit 1
 	cmake \
  		-DCMAKE_TOOLCHAIN_FILE=/etc/Toolchain-mingw-w64-x86_64.cmake \
-        -DCMAKE_C_FLAGS="'-mwin32 -m64 --disable-visibility'" \
-        -DCMAKE_CXX_FLAGS="'-mwin32 -m64 --disable-visibility'" \
  		-DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/msys2/mingw64 .. || exit 1
  	(make -j 3 && sudo make install) || exit 1
 fi
