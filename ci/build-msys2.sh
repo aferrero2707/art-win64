@@ -54,7 +54,7 @@ fi
 if [ ! -e exiv2-0.27.2-Source ]; then
 	curl -LO https://www.exiv2.org/builds/exiv2-0.27.2-Source.tar.gz || exit 1
 	tar xf exiv2-*.tar.gz || exit 1
-	cd exiv2-* || exit 1
+	cd exiv2-0.27.2-Source || exit 1
 	mkdir build || exit 1
 	cd build || exit 1
 	cmake \
