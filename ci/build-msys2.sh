@@ -19,7 +19,7 @@ for PKG in mingw-w64-x86_64-libjpeg-turbo-1.5.3-1-any.pkg.tar.xz mingw-w64-x86_6
 	sudo pacman --noconfirm --config /etc/pacman-msys.conf -U "$PKG" || exit 1
 done
 
-sudo pacman --noconfirm --config /etc/pacman-msys.conf -S mingw64/mingw-w64-x86_64-exiv2 \
+sudo pacman --noconfirm --config /etc/pacman-msys.conf -S \
 mingw64/mingw-w64-x86_64-fftw mingw64/mingw-w64-x86_64-libtiff mingw64/mingw-w64-x86_64-lcms2 || exit 1
 sudo pacman --noconfirm --config /etc/pacman-msys.conf -S \
 mingw64/mingw-w64-x86_64-gtk3 mingw64/mingw-w64-x86_64-gtkmm3 || exit 1
@@ -43,14 +43,25 @@ cd /work/w64-build || exit 1
 
 #rm -rf libiptcdata-*
 if [ ! -e libiptcdata-1.0.4 ]; then
-curl -LO http://downloads.sourceforge.net/project/libiptcdata/libiptcdata/1.0.4/libiptcdata-1.0.4.tar.gz || exit 1
-tar xzf libiptcdata-1.0.4.tar.gz || exit 1
-cd libiptcdata-1.0.4 || exit 1
-./configure --host=x86_64-w64-mingw32 --prefix=/msys2/mingw64 || exit 1
-sed -i -e 's|iptc docs||g' Makefile || exit 1
-(make && sudo make install) || exit 1
+	curl -LO http://downloads.sourceforge.net/project/libiptcdata/libiptcdata/1.0.4/libiptcdata-1.0.4.tar.gz || exit 1
+	tar xzf libiptcdata-1.0.4.tar.gz || exit 1
+	cd libiptcdata-1.0.4 || exit 1
+	./configure --host=x86_64-w64-mingw32 --prefix=/msys2/mingw64 || exit 1
+	sed -i -e 's|iptc docs||g' Makefile || exit 1
+	(make && sudo make install) || exit 1
 fi
 
+if [ ! -e exiv2-0.27.2-Source ]; then
+	curl -LO https://www.exiv2.org/builds/exiv2-0.27.2-Source.tar.gz || exit 1
+	tar xf exiv2-*.tar.gz || exit 1
+	cd exiv2-* || exit 1
+	mkdir build || exit 1
+	cd build || exit 1
+	cmake \
+ 		-DCMAKE_TOOLCHAIN_FILE=/etc/Toolchain-mingw-w64-x86_64.cmake \
+ 		-DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/msys2/mingw64 .. || exit 1
+ 	(make -j 3 && sudo make install) || exit 1
+fi
 
 # RawTherapee build and install
 if [ x"${TRAVIS_BRANCH}" = "xreleases" ]; then
