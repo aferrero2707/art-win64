@@ -320,11 +320,13 @@ sudo pacman --noconfirm -S zip unzip || exit 1
 # install latest version of exiftool.exe
 (cd /tmp && rm -f exiftool* && wget https://exiftool.org/exiftool-11.86.zip && unzip exiftool-11.86.zip && mv "exiftool(-k).exe" "exiftool.exe" && cp -a "exiftool.exe" $repackagedir) || exit 1
 
-rm -f $TRAVIS_BUILD_DIR/${bundle_package}_${bundle_version}.zip
+rm -f $TRAVIS_BUILD_DIR/${bundle_package}_${bundle_version}_win64.zip
 cd $repackagedir/../
-echo "zip -q -r $TRAVIS_BUILD_DIR/${bundle_package}_${bundle_version}.zip $bundle_package-$bundle_version"
-sudo zip -q -r $TRAVIS_BUILD_DIR/${bundle_package}_${bundle_version}.zip $bundle_package-$bundle_version
+echo "zip -q -r $TRAVIS_BUILD_DIR/${bundle_package}_${bundle_version}_win64.zip $bundle_package-$bundle_version"
+sudo zip -q -r $TRAVIS_BUILD_DIR/${bundle_package}_${bundle_version}_win64.zip $bundle_package-$bundle_version
 #transfer $TRAVIS_BUILD_DIR/$bundle_package-$bundle_version.zip
+
+exit
 
 
 echo "Size of EXIV2 library:"
