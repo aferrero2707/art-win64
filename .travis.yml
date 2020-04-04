@@ -5,7 +5,7 @@ sudo: required
 services: docker
 env: 
   - RT_BRANCH=master
-#  - RT_BRANCH=releases
+  - RT_BRANCH=releases
 
 - os: linux
 before_script:

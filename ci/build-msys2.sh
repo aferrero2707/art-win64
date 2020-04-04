@@ -15,7 +15,8 @@ sudo pacman --noconfirm --config /etc/pacman-msys.conf -Syu || exit 1
 #for PKG in mingw-w64-x86_64-libjpeg-turbo-1.5.3-1-any.pkg.tar.xz mingw-w64-x86_64-lensfun-0.3.2-4-any.pkg.tar.xz mingw-w64-x86_64-gtk3-3.22.30-1-any.pkg.tar.xz mingw-w64-x86_64-gtkmm3-3.22.3-1-any.pkg.tar.xz; do
 for PKG in mingw-w64-x86_64-libjpeg-turbo-1.5.3-1-any.pkg.tar.xz mingw-w64-x86_64-lensfun-0.3.2-4-any.pkg.tar.xz; do
 	rm -f "$PKG"
-	wget http://repo.msys2.org/mingw/x86_64/"$PKG" || exit 1
+	#wget http://repo.msys2.org/mingw/x86_64/"$PKG" || exit 1
+	wget https://mirror.yandex.ru/mirrors/msys2/mingw/x86_64/"$PKG" || exit 1
 	sudo pacman --noconfirm --config /etc/pacman-msys.conf -U "$PKG" || exit 1
 done
 
