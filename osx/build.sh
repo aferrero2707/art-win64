@@ -75,3 +75,4 @@ ls ${RES_DIR}/share/lensfun/version_1
 
 
 zip -q -r art.zip "art.app"
+pwd
