@@ -5,6 +5,12 @@ export PATH=$MPPREFIX/bin:$PATH
 export LD_LIBRARY_PATH=$MPPREFIX/lib:$LD_LIBRARY_PATH
 export PKG_CONFIG_PATH=$MPPREFIX/lib/pkgconfig:$PKG_CONFIG_PATH
 
+if [ x"${TRAVIS_OS_NAME}" == "xosx" ]; then
+(wget https://github.com/aferrero2707/macports-travis-cache/releases/download/continuous/macports-travis-cache-7.3-2.tgz && sudo tar xf macports-travis-cache-7.3-2.tgz) || exit 1
+port install exiv2 lcms2 lensfun fftw-3 gtk-osx-application-gtk3 || exit 1
+fi
+
+
 BTYPE=RelWithDebInfo
 mkdir -p art/build || exit 1
 (cd art/build && cmake -DCMAKE_BUILD_TYPE=$BTYPE -DCMAKE_OSX_DEPLOYMENT_TARGET=10.11 .. && make -j 2 install) || exit 1
