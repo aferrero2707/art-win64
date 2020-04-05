@@ -84,3 +84,4 @@ fi
 
 zip -q -r ART_${bundle_version}_macos.zip "art.app" || exit 1
 pwd
+ls -lhrt
