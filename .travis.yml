@@ -31,7 +31,7 @@ after_success:
     - cd "$TRAVIS_BUILD_DIR"
     - wget -c https://github.com/aferrero2707/uploadtool/raw/master/remove.sh
     - wget -c https://github.com/aferrero2707/uploadtool/raw/master/upload_rotate.sh
-    'if [ x"$TARGET_OS_NAME" = "xosx" ]; then
+    - 'if [ x"$TARGET_OS_NAME" = "xosx" ]; then
         bash ./remove.sh "continuous" "ART_${RT_BRANCH}_" "_macos.zip";
         bash  ./upload_rotate.sh "continuous" ART_${RT_BRANCH}_*_macos.zip >& /dev/null;
       fi'
