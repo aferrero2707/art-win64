@@ -2,7 +2,7 @@
 
 RELEASE="$1"
 GIT_BRANCH="$2"
-OS_NAME="43"
+OS_NAME="$3"
 
 echo ""
 echo "########################################################################"
@@ -21,8 +21,9 @@ if  [ -e /tmp/commit-${GIT_BRANCH}.hash ]; then
 	cat /tmp/commit-${GIT_BRANCH}.hash
 	echo -n "New ${GIT_BRANCH} hash: "
 	cat /tmp/commit-${GIT_BRANCH}-new.hash
+	cp /tmp/commit-${GIT_BRANCH}-new.hash ./commit-${GIT_BRANCH}-${OS_NAME}.hash
+	ls
 	diff /tmp/commit-${GIT_BRANCH}-new.hash /tmp/commit-${GIT_BRANCH}.hash
-    cp /tmp/commit-${GIT_BRANCH}-new.hash ./commit-${GIT_BRANCH}-${OS_NAME}.hash
 	if [ $? -eq 0 ]; then 
 		touch travis.cancel
 		echo "No new commit to be processed, exiting"
