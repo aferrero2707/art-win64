@@ -73,6 +73,14 @@ cp -a $HOME/.local/share/lensfun/updates/version_1/* ${RES_DIR}/share/lensfun/ve
 echo "Contents of \"${RES_DIR}/share/lensfun/version_1\":"
 ls ${RES_DIR}/share/lensfun/version_1
 
+export GIT_DESCRIBE="$(cd art && git describe --tags --always)"
+msg "TRAVIS_BRANCH: ${TRAVIS_BRANCH}" "GIT_DESCRIBE: ${GIT_DESCRIBE}"
+curr_date="$(date '+%Y%m%d')"
+if [[ $TRAVIS_BRANCH = releases ]]; then
+    bundle_version="${GIT_DESCRIBE}"
+else
+    bundle_version="${TRAVIS_BRANCH}_${GIT_DESCRIBE}_${curr_date}"
+fi
 
-zip -q -r art.zip "art.app"
+zip -q -r ART_${bundle_version}_macos.zip "art.app"
 pwd
