@@ -34,6 +34,10 @@ after_success:
         bash ./remove.sh "continuous" "ART_${RT_BRANCH}_" "_macos.zip" >& /dev/null;
         bash  ./upload_rotate.sh "continuous" ART_${RT_BRANCH}_*_macos.zip >& /dev/null;
       fi'
+    - 'if [ x"$TARGET_OS_NAME" = "xwin64" ]; then
+        bash ./remove.sh "continuous" "ART_${RT_BRANCH}_" "_win64.zip" >& /dev/null;
+        bash  ./upload_rotate.sh "continuous" TRAVIS_BUILD_DIR/art/ART_${RT_BRANCH}_*_win64.zip >& /dev/null;
+      fi'
     - bash  ./upload_rotate.sh "continuous" $TRAVIS_BUILD_DIR/art/commit-${RT_BRANCH}-${TARGET_OS_NAME}.hash >& /dev/null
 
 branches:
