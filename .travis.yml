@@ -1,53 +1,32 @@
-language: generic
-dist: trusty
-compiler: g++
-sudo: required
-services: docker
-env: 
-  - RT_BRANCH=master
-  - RT_BRANCH=releases
+jobs:
+  include:
+    - os: linux
+      language: generic
+      dist: trusty
+      compiler: g++
+      sudo: required
+      services: docker
+      env:
+        - TARGET_OS_NAME=win64
+        - RT_BRANCH=master
+    - os: osx
+      language: generic
+      osx_image: xcode9.4
+      env:
+        - TARGET_OS_NAME=osx
+        - RT_BRANCH=master
 
-- os: linux
 before_script:
-  - git clone https://bitbucket.org/agriggio/art.git --branch $RT_BRANCH --single-branch RawTherapee
-  - rm -rf RawTherapee/ci
-  - cp -a ci RawTherapee
-  - cd RawTherapee
-  - bash ci/check_commit.sh "continuous" ${RT_BRANCH}
-  - 'if [ -e travis.cancel -a "$TRAVIS_EVENT_TYPE" = "cron" ]; then
-        exit 0;
-    fi'
-  - git clone https://github.com/SpiNNakerManchester/SupportScripts.git support
-  - python support/travis_blocking_stdout.py
-  - travis_wait 120 sleep infinity & sudo docker pull photoflow/docker-buildenv-mingw-manjaro-wine
-  - sudo docker run -it -e "TRAVIS_BUILD_DIR=/sources" -e "TRAVIS_BRANCH=${RT_BRANCH}" -e "TRAVIS_COMMIT=xxx" -v $(pwd):/sources photoflow/docker-buildenv-mingw-manjaro-wine bash -x -c /sources/ci/package-msys2.sh
-  #- bash ci/appimage2.sh
-  - # check if zip file was successfully created
-  - # abort job with failure if not
-  #- ls RawTherapee_${RT_BRANCH}-win64*.zip RawTherapee_${RT_BRANCH}-win64*.exe
-  - ls -lhrt
-after_success:
-  - cd $TRAVIS_BUILD_DIR/RawTherapee
-  - pwd
-  #- ls RawTherapee_${RT_BRANCH}-win64*.zip RawTherapee_${RT_BRANCH}-win64*.exe
-  - ls -lhrt
-  - wget -c https://github.com/aferrero2707/uploadtool/raw/master/remove.sh
-  - bash ./remove.sh "continuous" "ART_${RT_BRANCH}-win64" ".zip" >& /dev/null
-  - bash ./remove.sh "continuous" "ART_${RT_BRANCH}-win64" ".exe" >& /dev/null
-  #- TRAVIS_REPO_SLUG="Beep6581/RawTherapee" bash ./remove.sh "nightly" "RawTherapee-${RT_BRANCH}-" ".AppImage"
-  - wget -c https://github.com/aferrero2707/uploadtool/raw/master/upload_rotate.sh
-  #- TRAVIS_REPO_SLUG="Beep6581/RawTherapee" bash  ./upload_rotate.sh "nightly" out/* >& /dev/null
-  #- TRAVIS_REPO_SLUG="Beep6581/RawTherapee" bash  ./upload_rotate.sh "nightly" $TRAVIS_BUILD_DIR/RawTherapee/commit-${RT_BRANCH}.hash >& /dev/null
-  - bash  ./upload_rotate.sh "continuous" ART*.zip >& /dev/null
-  - bash  ./upload_rotate.sh "continuous" ART*.exe >& /dev/null
-  - bash  ./upload_rotate.sh "continuous" $TRAVIS_BUILD_DIR/RawTherapee/commit-${RT_BRANCH}-win64.hash >& /dev/null
-  
-- os: osx
-  osx_image: xcode9.4
-  before_script:
     - git clone https://bitbucket.org/agriggio/art.git --branch $RT_BRANCH --single-branch art
-    - ./build-macos.sh
-
+    - cd RawTherapee
+    - bash ../check_commit.sh "continuous" ${RT_BRANCH} $TARGET_OS_NAME
+    - 'if [ -e travis.cancel -a "$TRAVIS_EVENT_TYPE" = "cron" ]; then
+        exit 0;
+      fi'
+script:
+    - cd "$TRAVIS_BUILD_DIR"
+    - bash $TARGET_OS_NAME/build.sh
+      
 branches:
   except:
     - # Do not build tags that we create when we upload to GitHub Releases
