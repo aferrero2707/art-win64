@@ -28,6 +28,7 @@ script:
 after_success:
     - cd "$TRAVIS_BUILD_DIR"
     - ls -lhrt
+    - ls -lhrt art
     - wget -c https://github.com/aferrero2707/uploadtool/raw/master/remove.sh
     - wget -c https://github.com/aferrero2707/uploadtool/raw/master/upload_rotate.sh
     - 'if [ x"$TARGET_OS_NAME" = "xosx" ]; then
