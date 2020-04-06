@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -xv
+#set -xv
 
 # transfer.sh
 transfer() 
