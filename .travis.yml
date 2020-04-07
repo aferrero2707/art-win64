@@ -1,12 +1,12 @@
 jobs:
   include:
-#    - os: linux
-#      language: generic
-#      sudo: required
-#      services: docker
-#      env:
-#        - TARGET_OS_NAME=win64
-#        - RT_BRANCH=master
+    - os: linux
+      language: generic
+      sudo: required
+      services: docker
+      env:
+        - TARGET_OS_NAME=win64
+        - RT_BRANCH=master
     - os: osx
       language: generic
       osx_image: xcode7.3
