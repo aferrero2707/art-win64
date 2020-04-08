@@ -7,6 +7,7 @@ export PKG_CONFIG_PATH=$MPPREFIX/lib/pkgconfig:$PKG_CONFIG_PATH
 
 WD=$(PWD)
 if [ x"${TRAVIS_OS_NAME}" == "xosx" ]; then
+sudo brew remove --force --ignore-dependencies libtiff libpng jpeg openjpeg
 (wget -q https://github.com/aferrero2707/macports-travis-cache/releases/download/continuous/macports-travis-cache-7.3-2.tgz && cd / && sudo tar xf $WD/macports-travis-cache-7.3-2.tgz) || exit 1
 sudo port install exiv2 lcms2 lensfun fftw-3 gtk-osx-application-gtk3 || exit 1
 fi
