@@ -36,7 +36,7 @@ cp -a osx/launcher.sh ${BUNDLE_DIR}/Contents/MacOS/ART || exit 1
 
 # Add libraries to the bundle and fix the rpath
 echo "Fixing dependencies of \"${BUNDLE_DIR}/Contents/MacOS/ART.bin\""
-tools/macdylibbundler/dylibbundler -od -of -b -x ${BUNDLE_DIR}/Contents/MacOS/ART.bin -d ${RES_DIR}/lib -p @executable_path/../../Resources/lib > dylibbundler.log || exit 1
+tools/macdylibbundler/dylibbundler -od -of -b -x ${BUNDLE_DIR}/Contents/MacOS/ART.bin -d ${RES_DIR}/lib -p @executable_path/../../Resources/lib || exit 1 #> dylibbundler.log || exit 1
 tools/macdylibbundler/dylibbundler -x ${BUNDLE_DIR}/Contents/MacOS/ART-cli -d ${RES_DIR}/lib -p @executable_path/../../Resources/lib || exit 1#> dylibbundler.log
 
 #exit
