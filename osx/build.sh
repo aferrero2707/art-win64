@@ -65,6 +65,9 @@ for l in "$gdk_pixbuf_dst_moduledir"/*.so; do
   tools/macdylibbundler/dylibbundler -of -b -x "$l" -d ${RES_DIR}/lib -p @executable_path/../../Resources/lib > /dev/null  || exit 1
 done
 
+# Copy Glib schemas into the bundle
+mkdir -p ${RES_DIR}/share/glib-2.0 || exit 1
+cp -a $MPPREFIX/share/glib-2.0/schemas ${RES_DIR}/share/glib-2.0 || exit 1
 
 # Update LensFun database
 lensfun-update-data
