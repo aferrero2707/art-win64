@@ -1,21 +1,27 @@
 #! /bin/bash
 
+echo "ls -l / [1]"
+ls -l / || exit 1
+
 sudo pacman --noconfirm -Syu || exit 1
 sudo pacman --noconfirm -S wget || exit 1
 (sudo mkdir -p /work && sudo chmod a+w /work) || exit 1
 
 cd /work || exit 1
 
+echo "ls -l / [2]"
 ls -l / || exit 1
 
 (rm -f pacman-msys.conf && wget https://raw.githubusercontent.com/aferrero2707/docker-buildenv-mingw/master/pacman-msys.conf && sudo cp pacman-msys.conf /etc/pacman-msys.conf) || exit 1
 (rm -f Toolchain-mingw-w64-x86_64.cmake && wget https://raw.githubusercontent.com/aferrero2707/docker-buildenv-mingw/master/Toolchain-mingw-w64-x86_64.cmake && sudo cp Toolchain-mingw-w64-x86_64.cmake /etc/Toolchain-mingw-w64-x86_64.cmake) || exit 1
 
+echo "ls -l / [3]"
 ls -l / || exit 1
 
 
 sudo pacman --noconfirm --config /etc/pacman-msys.conf -Syu || exit 1
 
+echo "ls -l / [4]"
 ls -l / || exit 1
 
 #for PKG in mingw-w64-x86_64-libjpeg-turbo-1.5.3-1-any.pkg.tar.xz mingw-w64-x86_64-lensfun-0.3.2-4-any.pkg.tar.xz mingw-w64-x86_64-gtk3-3.22.30-1-any.pkg.tar.xz mingw-w64-x86_64-gtkmm3-3.22.3-1-any.pkg.tar.xz; do
@@ -26,16 +32,19 @@ for PKG in mingw-w64-x86_64-libjpeg-turbo-1.5.3-1-any.pkg.tar.xz mingw-w64-x86_6
 	sudo pacman --noconfirm --config /etc/pacman-msys.conf -U "$PKG" || exit 1
 done
 
+echo "ls -l / [5]"
 ls -l / || exit 1
 
 sudo pacman --noconfirm --config /etc/pacman-msys.conf -S \
 mingw64/mingw-w64-x86_64-fftw mingw64/mingw-w64-x86_64-libtiff mingw64/mingw-w64-x86_64-lcms2 || exit 1
 
+echo "ls -l / [6]"
 ls -l / || exit 1
 
 sudo pacman --noconfirm --config /etc/pacman-msys.conf -S \
 mingw64/mingw-w64-x86_64-gtk3 mingw64/mingw-w64-x86_64-gtkmm3 || exit 1
 
+echo "ls -l / [7]"
 ls -l / || exit 1
 ls -l /mingw64
 ls -l /msys2
