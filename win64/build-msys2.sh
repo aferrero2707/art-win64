@@ -3,7 +3,7 @@
 echo "ls -l / [0]"
 ls -l / || exit 1
 
-sudo pacman --noconfirm -Syu || exit 1
+#sudo pacman --noconfirm -Syu || exit 1
 echo "ls -l / [1]"
 ls -l / || exit 1
 sudo pacman --noconfirm -S wget || exit 1
