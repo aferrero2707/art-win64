@@ -28,6 +28,9 @@ export installdir=/mingw64
 export RT_PREFIX=Release
 export RT_PREFIX_DEBUG=Debug
 
+ls -l /
+ls -l /msys2
+
 if [ ! -e /work/build.done ]; then
 	rm -f /work/w64-build/rt/${RT_PREFIX}/rawtherapee.exe
 	$TRAVIS_BUILD_DIR/ci/build-msys2.sh || exit 1
