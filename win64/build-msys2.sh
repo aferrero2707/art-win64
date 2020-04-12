@@ -25,7 +25,10 @@ mingw64/mingw-w64-x86_64-fftw mingw64/mingw-w64-x86_64-libtiff mingw64/mingw-w64
 sudo pacman --noconfirm --config /etc/pacman-msys.conf -S \
 mingw64/mingw-w64-x86_64-gtk3 mingw64/mingw-w64-x86_64-gtkmm3 || exit 1
 
-
+ls -l /
+ls -l /mingw64
+ls -l /msys2
+ls -l /msys2/mingw64
 echo "Size of EXIV2 library:"
 ls -lk /mingw64/libexiv2*.dll
 ls -lk /msys2/mingw64/libexiv2*.dll
