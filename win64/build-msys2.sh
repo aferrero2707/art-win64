@@ -1,5 +1,8 @@
 #! /bin/bash
 
+echo "sudo ls -l / [0]"
+sudo ls -l / || exit 1
+
 echo "ls -l / [0]"
 ls -l / || exit 1
 
