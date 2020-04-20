@@ -1,0 +1,38 @@
+diff --git a/rtengine/metadata.cc b/rtengine/metadata.cc
+--- a/rtengine/metadata.cc
++++ b/rtengine/metadata.cc
+@@ -87,7 +87,8 @@
+ #endif
+         throw Exiv2::Error(error_code, "exiv2: invalid image");
+     }
+-    return image;
++    std::unique_ptr<Exiv2::Image> ret(image.release());
++    return ret;
+ }
+ 
+ 
+@@ -323,6 +324,7 @@
+         }
+         throw exc;
+     }
++    std::unique_ptr<Exiv2::Image> ret;
+     try {
+         auto image = Exiv2::ImageFactory::open(outname);
+         image->readMetadata();
+@@ -344,14 +346,14 @@
+         set_from("Xmp.exifEX.LensModel", "Exif.Photo.LensModel");
+         xmp.clear();
+         g_remove(outname.c_str());
+-        return image;
++        ret.reset(image.release());
+     } catch (std::exception &) {
+         if (Glib::file_test(outname, Glib::FILE_TEST_EXISTS)) {
+             g_remove(outname.c_str());
+         }
+         throw exc;
+     }
+-    return std::unique_ptr<Exiv2::Image>();
++    return ret;
+ }
+ 
+ } // namespace

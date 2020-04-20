@@ -14,6 +14,7 @@ fi
 
 
 BTYPE=RelWithDebInfo
+(cd art && patch -N -p0 < osx/metadata_clang_fix.patch) || exit 1
 mkdir -p art/build || exit 1
 (cd art/build && cmake -DCMAKE_BUILD_TYPE=$BTYPE -DCMAKE_OSX_DEPLOYMENT_TARGET=10.11 .. && make -j 2 install) || exit 1
 
