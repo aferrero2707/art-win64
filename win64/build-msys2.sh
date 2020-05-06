@@ -158,12 +158,12 @@ echo ""
 wget http://ftp.gnome.org/pub/gnome/sources/adwaita-icon-theme/3.26/adwaita-icon-theme-3.26.0.tar.xz && \
 tar xJf adwaita-icon-theme-3.26.0.tar.xz && cd adwaita-icon-theme-3.26.0 && \
 ./configure --host=x86_64-w64-mingw32 --prefix=/msys2/mingw64 && sudo make install && rm -rf adwaita-icon-theme-3.24.0*) || exit 1
-fi
 
 sudo pacman --noconfirm -S gtk-update-icon-cache || exit 1
 sudo gtk-update-icon-cache "/mingw64/share/icons/Adwaita"
 echo "icons after adwaita installation:"
 ls /mingw64/share/icons
 echo ""
+fi
 
 touch /work/build.done
