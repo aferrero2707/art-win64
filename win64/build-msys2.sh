@@ -112,6 +112,7 @@ cd /work/w64-build/rt || exit 1
  -DCMAKE_TOOLCHAIN_FILE=/etc/Toolchain-mingw-w64-x86_64.cmake \
  -DCMAKE_BUILD_TYPE=Release -DPROC_TARGET_NUMBER=1 \
  -DCACHE_NAME_SUFFIX="${CACHE_SUFFIX}" \
+ -DLENSFUNDBDIR="./share/lensfun" \
  -DCMAKE_C_FLAGS="'-mwin32 -m64 -mthreads -msse2'" \
  -DCMAKE_C_FLAGS_RELEASE="'-DNDEBUG -O2'" \
  -DCMAKE_CXX_FLAGS="'-mwin32 -m64 -mthreads -msse2'" \
@@ -134,6 +135,7 @@ cd /work/w64-build/rt-debug || exit 1
  -DCMAKE_TOOLCHAIN_FILE=/etc/Toolchain-mingw-w64-x86_64.cmake \
  -DCMAKE_BUILD_TYPE=Debug -DPROC_TARGET_NUMBER=1 \
  -DCACHE_NAME_SUFFIX="${CACHE_SUFFIX}" \
+ -DLENSFUNDBDIR="./share/lensfun" \
  -DCMAKE_POLICY_DEFAULT_CMP0074=NEW \
  -DWIN32=TRUE \
  /sources && make -j 3 install) || exit 1
