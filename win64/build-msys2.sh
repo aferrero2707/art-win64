@@ -23,7 +23,11 @@ cd /work || exit 1
 echo "ls -l / [3]"
 ls -l / || exit 1
 
-
+(wget http://repo.msys2.org/msys/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz && wget http://repo.msys2.org/msys/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz.sig && \
+ sudo pacman-key --verify msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz{.sig,}) || exit 1
+echo "Installing MSYS2 keyring"
+sudo pacman --noconfirm -U msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz || exit 1
+echo "Updating MSYS2"
 sudo pacman --noconfirm --config /etc/pacman-msys.conf -Syu || exit 1
 
 echo "ls -l / [4]"
