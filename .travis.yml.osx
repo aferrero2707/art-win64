@@ -1,0 +1,49 @@
+jobs:
+  include:
+    - os: linux
+      language: generic
+      sudo: required
+      services: docker
+      env:
+        - TARGET_OS_NAME=win64
+        - RT_BRANCH=master
+        - RT_BRANCH=releases
+    - os: osx
+      language: generic
+      osx_image: xcode7.3
+      #osx_image: xcode9.4
+      env:
+        - TARGET_OS_NAME=osx
+        - RT_BRANCH=master
+
+before_script:
+    - git clone https://bitbucket.org/agriggio/art.git --branch $RT_BRANCH --single-branch --depth 1 art
+    - cd art
+    - bash ../check_commit.sh "continuous" ${RT_BRANCH} ${TARGET_OS_NAME}
+    - 'if [ -e travis.cancel -a "$TRAVIS_EVENT_TYPE" = "cron" ]; then
+        exit 0;
+      fi'
+script:
+    - cd "$TRAVIS_BUILD_DIR"
+    - bash ${TARGET_OS_NAME}/build.sh
+after_success:
+    - cd "$TRAVIS_BUILD_DIR"
+    - ls -lhrt
+    - ls -lhrt art
+    - wget -c https://github.com/aferrero2707/uploadtool/raw/master/remove.sh
+    - wget -c https://github.com/aferrero2707/uploadtool/raw/master/upload_rotate.sh
+    - 'if [ x"$TARGET_OS_NAME" = "xosx" ]; then
+        bash ./remove.sh "continuous" "ART_${RT_BRANCH}_" "_macos.zip" >& /dev/null;
+        bash  ./upload_rotate.sh "continuous" ART_${RT_BRANCH}_*_macos.zip >& /dev/null;
+      fi'
+    - 'if [ x"$TARGET_OS_NAME" = "xwin64" ]; then
+        bash ./remove.sh "continuous" "ART_${RT_BRANCH}_" "_win64.zip" >& /dev/null;
+        bash  ./upload_rotate.sh "continuous" ${TRAVIS_BUILD_DIR}/art/ART_${RT_BRANCH}_*_win64.zip >& /dev/null;
+      fi'
+    - bash  ./upload_rotate.sh "continuous" ${TRAVIS_BUILD_DIR}/art/commit-${RT_BRANCH}-${TARGET_OS_NAME}.hash >& /dev/null
+
+branches:
+  except:
+    - # Do not build tags that we create when we upload to GitHub Releases
+    - /^(?i:continuous)$/
+    
