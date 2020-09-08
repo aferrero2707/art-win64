@@ -175,7 +175,6 @@ libsqlite3-0.dll \
 libgthread-2.0-0.dll \
 libssl-1_1-x64.dll \
 libgtkreftestprivate-0.dll \
-libssp-0.dll \
 libharfbuzz-gobject-0.dll \
 libtasn1-6.dll \
 libharfbuzz-icu-0.dll \
