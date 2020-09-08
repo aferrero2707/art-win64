@@ -7,6 +7,7 @@ jobs:
       env:
         - TARGET_OS_NAME=win64
         - RT_BRANCH=master
+        - RT_BRANCH=1.5
     - os: osx
       language: generic
       osx_image: xcode7.3
@@ -16,7 +17,7 @@ jobs:
         - RT_BRANCH=master
 
 before_script:
-    - git clone https://bitbucket.org/agriggio/art.git --branch $RT_BRANCH --single-branch art
+    - git clone https://bitbucket.org/agriggio/art.git --branch $RT_BRANCH --single-branch --depth 1 art
     - cd art
     - bash ../check_commit.sh "continuous" ${RT_BRANCH} ${TARGET_OS_NAME}
     - 'if [ -e travis.cancel -a "$TRAVIS_EVENT_TYPE" = "cron" ]; then
