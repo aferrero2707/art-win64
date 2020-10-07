@@ -23,7 +23,10 @@ cd /work || exit 1
 echo "ls -l / [3]"
 ls -l / || exit 1
 
-(wget http://repo.msys2.org/msys/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz && wget http://repo.msys2.org/msys/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz.sig && \
+#MSYS2MIRROR=http://repo.msys2.org
+MSYS2MIRROR=https://mirror.yandex.ru/mirrors/msys2
+
+(wget $MSYS2MIRROR/msys/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz && wget $MSYS2MIRROR/msys/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz.sig && \
  sudo pacman-key --verify msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz{.sig,}) || exit 1
 echo "Installing MSYS2 keyring"
 sudo pacman --noconfirm -U msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz || exit 1
@@ -37,7 +40,7 @@ ls -l / || exit 1
 for PKG in mingw-w64-x86_64-libjpeg-turbo-1.5.3-1-any.pkg.tar.xz mingw-w64-x86_64-lensfun-0.3.2-4-any.pkg.tar.xz; do
 	rm -f "$PKG"
 	#wget http://repo.msys2.org/mingw/x86_64/"$PKG" || exit 1
-	wget https://mirror.yandex.ru/mirrors/msys2/mingw/x86_64/"$PKG" || exit 1
+	wget $MSYS2MIRROR/mingw/x86_64/"$PKG" || exit 1
 	sudo pacman --noconfirm --config /etc/pacman-msys.conf -U "$PKG" || exit 1
 done
 
