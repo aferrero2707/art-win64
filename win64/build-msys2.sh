@@ -37,7 +37,7 @@ echo "ls -l / [4]"
 ls -l / || exit 1
 
 #for PKG in mingw-w64-x86_64-libjpeg-turbo-1.5.3-1-any.pkg.tar.xz mingw-w64-x86_64-lensfun-0.3.2-4-any.pkg.tar.xz mingw-w64-x86_64-gtk3-3.22.30-1-any.pkg.tar.xz mingw-w64-x86_64-gtkmm3-3.22.3-1-any.pkg.tar.xz; do
-for PKG in mingw-w64-x86_64-libjpeg-turbo-1.5.3-1-any.pkg.tar.xz mingw-w64-x86_64-lensfun-0.3.2-4-any.pkg.tar.xz; do
+for PKG in mingw-w64-x86_64-lensfun-0.3.2-4-any.pkg.tar.xz; do
 	rm -f "$PKG"
 	#wget http://repo.msys2.org/mingw/x86_64/"$PKG" || exit 1
 	wget $MSYS2MIRROR/mingw/x86_64/"$PKG" || exit 1
@@ -48,7 +48,7 @@ echo "ls -l / [5]"
 ls -l / || exit 1
 
 sudo pacman --noconfirm --config /etc/pacman-msys.conf -S \
-mingw64/mingw-w64-x86_64-fftw mingw64/mingw-w64-x86_64-libtiff mingw64/mingw-w64-x86_64-lcms2 || exit 1
+mingw64/mingw-w64-x86_64-fftw mingw64/mingw-w64-x86_64-libtiff mingw64/mingw-w64-x86_64-lcms2 mingw64/mingw-w64-x86_64-libjpeg-turbo || exit 1
 
 echo "ls -l / [6]"
 ls -l / || exit 1
